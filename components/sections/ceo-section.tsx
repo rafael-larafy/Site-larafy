@@ -1,6 +1,7 @@
 "use client"
 
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import WaldirImg from "../../lib/Waldir.png"
 
 export function CeoSection() {
   const [ref, isVisible] = useScrollAnimation<HTMLElement>(0.1)
@@ -40,10 +41,10 @@ export function CeoSection() {
           {/* Right - CEO */}
           <div className={`flex-1 relative ${isVisible ? 'animate-slide-right animate-visible' : 'animate-slide-right'}`}>
             <div className="relative flex items-end justify-center">
-              <div className="relative w-72 h-96 lg:w-[420px] lg:h-[520px] overflow-hidden">
+              <div className="relative w-72 h-96 lg:w-[520px] lg:h-[620px] overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0a1628] via-transparent to-transparent z-10" />
                 <img
-                  src="/images/waldir-de-lara.png"
+                  src={WaldirImg.src || WaldirImg}
                   alt="Waldir de Lara - Founder e CEO da LaraFy"
                   className="w-full h-full object-cover object-top"
                 />

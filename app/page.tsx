@@ -9,6 +9,7 @@ import { CeoSection } from "@/components/sections/ceo-section"
 import { BlindagemSection } from "@/components/sections/blindagem-section"
 import { DiferencialSection } from "@/components/sections/diferencial-section"
 import { TransparenciaSection } from "@/components/sections/transparencia-section"
+import { PainelLarafy } from "@/components/sections/painel-larafy"
 import { ZeroRiscoSection } from "@/components/sections/zero-risco-section"
 import { ReformaCardSection } from "@/components/sections/reforma-card-section"
 import { useEffect } from "react"
@@ -47,6 +48,7 @@ export default function Home() {
         <BlindagemSection />
         <DiferencialSection />
         <TransparenciaSection />
+        <PainelLarafy />
         <ZeroRiscoSection />
         <ReformaCardSection />
       </main>
