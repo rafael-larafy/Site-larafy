@@ -58,7 +58,7 @@ export function Header() {
                 <a
                   key={link.href}
                   href={link.href}
-                  className={`text-sm text-[#012e43] underline-offset-4 transition-colors duration-200 hover:text-[#00e5ff] hover:underline ${
+                  className={`text-sm text-[#012e43] underline-offset-4 transition-colors duration-200 hover:text-[#012e43] hover:underline ${
                     isActive ? "font-bold" : "font-normal"
                   }`}
                 >
