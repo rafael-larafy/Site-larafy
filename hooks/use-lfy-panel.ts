@@ -5,9 +5,10 @@ import { useEffect } from "react"
 // Hook que encapsula a inicialização das animações do painel LFY.
 // Uso: crie o markup (ids: lfySvg, lfyWheel, lfyScr*, lfyTip*, lfyBadge, etc.) no DOM
 // e chame `useLfyPanel(containerRef)` no componente que contém esse markup.
-export function useLfyPanel(containerRef: React.RefObject<HTMLElement | null>) {
+export function useLfyPanel(containerRef: React.RefObject<HTMLElement | null>, opts?: { prefix?: string }) {
   useEffect(() => {
     if (!containerRef?.current) return
+    const prefix = opts?.prefix || 'lfy'
 
     function deg2rad(d: number) { return (d - 90) * Math.PI / 180 }
     function p2c(cx: number, cy: number, r: number, a: number) {
@@ -15,7 +16,6 @@ export function useLfyPanel(containerRef: React.RefObject<HTMLElement | null>) {
       return { x: cx + r * Math.cos(d), y: cy + r * Math.sin(d) }
     }
 
-    // Generic "pie" builder used by the simpler wheel variation in Painel-v2
     function pie(cx: number, cy: number, rOuter: number, rInner: number, sa: number, ea: number) {
       const large = (ea - sa) > 180 ? 1 : 0
       const sOuter = p2c(cx, cy, rOuter, sa)
@@ -32,11 +32,10 @@ export function useLfyPanel(containerRef: React.RefObject<HTMLElement | null>) {
     }
 
     function initLFY() {
-      const svg = containerRef.current!.querySelector('#lfySvg') as SVGElement | null
-      const wheel = containerRef.current!.querySelector('#lfyWheel') as HTMLElement | null
+      const svg = containerRef.current!.querySelector(`#${prefix}Svg`) as SVGElement | null
+      const wheel = containerRef.current!.querySelector(`#${prefix}Wheel`) as HTMLElement | null
       if (!svg || !wheel) return false
 
-      // Configuration mirrors the original panel
       const CX = 270, CY = 270, R = 270, R_INNER = 190, GAP = 3, SEG = 72, OFF = -72
       const COLORS = ['#1a3a5c','#1a6b7c','#22b8c9','#1a3a5c','#132a45']
       const HCOLORS = ['#2a5a8c','#2a8b9c','#3ce0f2','#2a5a8c','#1a3a5c']
@@ -49,7 +48,7 @@ export function useLfyPanel(containerRef: React.RefObject<HTMLElement | null>) {
           const path = document.createElementNS('http://www.w3.org/2000/svg', 'path') as SVGPathElement
           path.setAttribute('d', pie(CX, CY, R, R_INNER, sa, ea))
           path.setAttribute('fill', COLORS[i])
-          path.setAttribute('class', 'lfy-seg')
+          path.setAttribute('class', `${prefix}-seg`)
           path.setAttribute('data-step', String(i + 1))
           svg.appendChild(path)
           segs.push({ el: path, sa, ea, c: COLORS[i], hc: HCOLORS[i] })
@@ -61,10 +60,9 @@ export function useLfyPanel(containerRef: React.RefObject<HTMLElement | null>) {
       const segsRef: any[] = (window as any).__lfySegs || []
       if (!segsRef.length) return false
 
-      // Position labels
       segsRef.forEach((s, idx) => {
         const step = idx + 1
-        const lbl = containerRef.current!.querySelector('.lfy-lbl-' + step) as HTMLElement | null
+        const lbl = containerRef.current!.querySelector(`.${prefix}-lbl-` + step) as HTMLElement | null
         if (!lbl) return
         const mid = (s.sa + s.ea) / 2
         const labelRadius = (R + R_INNER) / 2 - 10
@@ -95,7 +93,7 @@ export function useLfyPanel(containerRef: React.RefObject<HTMLElement | null>) {
           }
         })
 
-        containerRef.current!.querySelectorAll('.lfy-lbl').forEach(l => {
+        containerRef.current!.querySelectorAll(`.${prefix}-lbl`).forEach(l => {
           const n = parseInt((l as HTMLElement).getAttribute('data-step') || '0')
           if (n === step) {
             (l as HTMLElement).style.transform = 'translate(-50%, -50%) translateY(-6px) scale(1.04)'
@@ -107,9 +105,9 @@ export function useLfyPanel(containerRef: React.RefObject<HTMLElement | null>) {
         })
 
         for (let j = 1; j <= 5; j++) {
-          const tip = document.getElementById('lfyTip' + j)
-          const cn = document.getElementById('lfyC' + j)
-          const dt = document.getElementById('lfyD' + j)
+          const tip = document.getElementById(`${prefix}Tip` + j)
+          const cn = document.getElementById(`${prefix}C` + j)
+          const dt = document.getElementById(`${prefix}D` + j)
           if (!tip || !cn || !dt) continue
           if (j === step) {
             tip.classList.add('active')
@@ -123,13 +121,13 @@ export function useLfyPanel(containerRef: React.RefObject<HTMLElement | null>) {
         }
 
         for (let k = 1; k <= 5; k++) {
-          const scr = document.getElementById('lfyScr' + k)
+          const scr = document.getElementById(`${prefix}Scr` + k)
           if (!scr) continue
           if (k === step) scr.classList.add('active')
           else scr.classList.remove('active')
         }
 
-        const badge = document.getElementById('lfyBadge')
+        const badge = document.getElementById(`${prefix}Badge`)
         if (badge) {
           badge.textContent = String(step)
           badge.style.transform = 'translateX(-50%) scale(1.25)'
@@ -144,29 +142,29 @@ export function useLfyPanel(containerRef: React.RefObject<HTMLElement | null>) {
           s.el.setAttribute('fill', s.c)
           s.el.classList.remove('active')
         })
-        containerRef.current!.querySelectorAll('.lfy-lbl').forEach(l => {
+        containerRef.current!.querySelectorAll(`.${prefix}-lbl`).forEach(l => {
           (l as HTMLElement).style.transform = 'translate(-50%, -50%)'
           (l as HTMLElement).style.textShadow = 'none'
         })
         for (let j = 1; j <= 5; j++) {
-          const tip = document.getElementById('lfyTip' + j)
-          const cn = document.getElementById('lfyC' + j)
-          const dt = document.getElementById('lfyD' + j)
+          const tip = document.getElementById(`${prefix}Tip` + j)
+          const cn = document.getElementById(`${prefix}C` + j)
+          const dt = document.getElementById(`${prefix}D` + j)
           if (tip) tip.classList.remove('active')
           if (cn) cn.classList.remove('active')
           if (dt) dt.classList.remove('active')
         }
         for (let k = 1; k <= 5; k++) {
-          const scr = document.getElementById('lfyScr' + k)
+          const scr = document.getElementById(`${prefix}Scr` + k)
           if (scr) scr.classList.toggle('active', k === 1)
         }
-        const badge = document.getElementById('lfyBadge')
+        const badge = document.getElementById(`${prefix}Badge`)
         if (badge) badge.textContent = '1'
       }
 
       if (!wheel.dataset.bound) {
         segsRef.forEach((s, i) => s.el.addEventListener('mouseenter', () => setStep(i + 1)))
-        containerRef.current!.querySelectorAll('.lfy-lbl').forEach(l => l.addEventListener('mouseenter', () => setStep(parseInt((l as HTMLElement).getAttribute('data-step') || '1'))))
+        containerRef.current!.querySelectorAll(`.${prefix}-lbl`).forEach(l => l.addEventListener('mouseenter', () => setStep(parseInt((l as HTMLElement).getAttribute('data-step') || '1'))))
         wheel.addEventListener('mouseleave', () => clearStep())
         wheel.dataset.bound = '1'
       }
@@ -174,7 +172,6 @@ export function useLfyPanel(containerRef: React.RefObject<HTMLElement | null>) {
       return true
     }
 
-    // Boot with retry - useful when markup is injected or rendered asynchronously
     let tries = 0
     const attempt = () => {
       const ok = initLFY()
@@ -183,5 +180,5 @@ export function useLfyPanel(containerRef: React.RefObject<HTMLElement | null>) {
       if (tries < 60) setTimeout(attempt, 50)
     }
     attempt()
-  }, [containerRef])
+  }, [containerRef, opts])
 }
