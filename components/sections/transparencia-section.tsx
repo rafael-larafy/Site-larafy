@@ -31,7 +31,7 @@ export function TransparenciaSection() {
           {/* Left - Title */}
           <div className={`flex-1 ${isVisible ? 'animate-slide-left animate-visible' : 'animate-slide-left'}`}>
             <h2 className="text-3xl font-extrabold leading-tight text-[#00e5ff] lg:text-5xl text-balance">
-              Transparencia e Metodo: um processo claro para ir da estrategia a acao.
+              Transparencia e Metodo: um processo claro para ir da estrategia a ação.
             </h2>
           </div>
 
