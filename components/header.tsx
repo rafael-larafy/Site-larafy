@@ -56,7 +56,7 @@ export function Header() {
           {/* Social icons */}
           <div className="hidden lg:flex items-center gap-4">
             <a
-              href="#"
+              href="https://www.linkedin.com/company/laratax/"
               aria-label="LinkedIn"
               className="text-[#012e43] transition-colors duration-200 hover:text-[#77e4ff]"
             >
@@ -65,7 +65,7 @@ export function Header() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.facebook.com/laratax"
               aria-label="Facebook"
               className="text-[#012e43] transition-colors duration-200 hover:text-[#77e4ff]"
             >
@@ -74,7 +74,7 @@ export function Header() {
               </svg>
             </a>
             <a
-              href="#"
+              href="https://www.instagram.com/laratax/"
               aria-label="Instagram"
               className="text-[#012e43] transition-colors duration-200 hover:text-[#77e4ff]"
             >
