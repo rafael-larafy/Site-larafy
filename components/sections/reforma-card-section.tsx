@@ -1,0 +1,86 @@
+"use client"
+
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+
+export function ReformaCardSection() {
+  const [ref, isVisible] = useScrollAnimation<HTMLElement>(0.15)
+
+  return (
+    <section ref={ref} className="relative py-16 lg:py-24 overflow-hidden bg-[#00e5ff]/10">
+      {/* Subtle background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#00e5ff]/5 via-transparent to-[#0a1628]/10" />
+
+      <div className="relative z-10 mx-auto max-w-6xl px-6 lg:px-8">
+        <div
+          className={`flex flex-col lg:flex-row items-stretch rounded-3xl overflow-hidden shadow-2xl ${
+            isVisible ? 'animate-scale animate-visible' : 'animate-scale'
+          }`}
+        >
+          {/* Left - Reforma Tributaria */}
+          <div className="relative flex-1 bg-[#ffffff] p-10 lg:p-14 flex flex-col justify-center overflow-hidden">
+            {/* Network pattern background */}
+            <div className="absolute inset-0 opacity-5">
+              <svg className="w-full h-full" viewBox="0 0 400 300" fill="none">
+                {[
+                  { x: 40, y: 50, lx: 150, ly: 120 },
+                  { x: 120, y: 200, lx: 280, ly: 80 },
+                  { x: 200, y: 30, lx: 100, ly: 250 },
+                  { x: 300, y: 150, lx: 350, ly: 270 },
+                  { x: 370, y: 80, lx: 200, ly: 180 },
+                  { x: 60, y: 270, lx: 320, ly: 220 },
+                  { x: 250, y: 250, lx: 80, ly: 100 },
+                ].map((p, i) => (
+                  <g key={i}>
+                    <circle cx={p.x} cy={p.y} r="2" fill="#0a1628" />
+                    <line x1={p.x} y1={p.y} x2={p.lx} y2={p.ly} stroke="#0a1628" strokeWidth="0.3" />
+                  </g>
+                ))}
+              </svg>
+            </div>
+
+            <div className="relative z-10">
+              <h2 className="text-4xl font-black uppercase text-[#0a1628] lg:text-6xl leading-tight">
+                Reforma<br />Tributaria
+              </h2>
+              <p className="mt-4 text-sm font-semibold uppercase tracking-[0.2em] text-[#4a6080]">
+                Autoridade de Futuro
+              </p>
+            </div>
+          </div>
+
+          {/* Right - Description */}
+          <div className="flex-1 bg-[#0d1d33] p-10 lg:p-14 flex flex-col justify-center">
+            <h3 className="text-2xl font-extrabold text-[#00e5ff] lg:text-3xl leading-tight text-balance">
+              A Reforma Tributaria nao e um evento. E um processo.
+            </h3>
+            <div className="mt-6 space-y-4">
+              <p className="text-[#8ba3c0] leading-relaxed">
+                Empresas que tratam a <span className="text-[#ffffff] font-semibold">Reforma Tributaria</span> como uma mera
+                atualizacao, ou &ldquo;jogo do governo&rdquo;, estarao sempre reagindo (e
+                perdendo dinheiro). A <span className="text-[#ffffff] font-semibold">LaraFy</span> opera com leitura ativa do cenario:
+              </p>
+              <ul className="space-y-2 text-[#8ba3c0]">
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 text-[#00e5ff]">&#8226;</span>
+                  Simulacoes constantes de impacto (IVA Dual).
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 text-[#00e5ff]">&#8226;</span>
+                  Ajustes estrategicos em tempo real.
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="mt-1 text-[#00e5ff]">&#8226;</span>
+                  Protecao da margem e dos contratos.
+                </li>
+              </ul>
+            </div>
+            <p className="mt-8 text-xl font-bold uppercase text-[#00e5ff] tracking-wide leading-tight">
+              Quem reage depois, paga mais.<br />
+              Quem antecipa, lidera.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

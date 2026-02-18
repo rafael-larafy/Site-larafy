@@ -1,0 +1,111 @@
+"use client"
+
+import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import { useEffect, useState, useRef } from "react"
+
+function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
+  const [count, setCount] = useState(0)
+  const [hasStarted, setHasStarted] = useState(false)
+  const ref = useRef<HTMLSpanElement>(null)
+
+  useEffect(() => {
+    const el = ref.current
+    if (!el) return
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !hasStarted) {
+          setHasStarted(true)
+        }
+      },
+      { threshold: 0.5 }
+    )
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [hasStarted])
+
+  useEffect(() => {
+    if (!hasStarted) return
+    const duration = 2000
+    const steps = 60
+    const increment = target / steps
+    let current = 0
+    const timer = setInterval(() => {
+      current += increment
+      if (current >= target) {
+        setCount(target)
+        clearInterval(timer)
+      } else {
+        setCount(Math.floor(current))
+      }
+    }, duration / steps)
+    return () => clearInterval(timer)
+  }, [hasStarted, target])
+
+  return <span ref={ref}>{count}{suffix}</span>
+}
+
+export function StatsSection() {
+  const [ref, isVisible] = useScrollAnimation<HTMLElement>(0.2)
+
+  return (
+    <section
+      ref={ref}
+      className="relative py-16 overflow-hidden"
+      style={{
+        background: "linear-gradient(135deg, #0a1628 0%, #0d2847 50%, #0a1628 100%)",
+      }}
+    >
+      {/* Subtle blue glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-[#0066ff]/15 blur-[100px] rounded-full" />
+
+      <div className="relative z-10 mx-auto max-w-5xl px-6 lg:px-8">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-0">
+          {/* Stat 1 */}
+          <div
+            className={`flex-1 flex items-center justify-center gap-3 text-center md:border-r md:border-[#ffffff]/20 ${
+              isVisible ? 'animate-on-scroll animate-visible stagger-1' : 'animate-on-scroll'
+            }`}
+          >
+            <span className="text-4xl font-extrabold text-[#ffffff] lg:text-5xl">
+              +<AnimatedCounter target={5} />
+            </span>
+            <span className="text-sm font-medium text-[#ffffff]/80 text-left leading-tight">
+              Anos de<br />Mercado
+            </span>
+          </div>
+
+          {/* Stat 2 */}
+          <div
+            className={`flex-1 flex items-center justify-center gap-3 text-center md:border-r md:border-[#ffffff]/20 ${
+              isVisible ? 'animate-on-scroll animate-visible stagger-2' : 'animate-on-scroll'
+            }`}
+          >
+            <span className="text-4xl font-extrabold text-[#ffffff] lg:text-5xl">
+              +<AnimatedCounter target={100} />
+            </span>
+            <span className="text-sm font-medium text-[#ffffff]/80 text-left leading-tight">
+              Especialistas
+            </span>
+          </div>
+
+          {/* Stat 3 */}
+          <div
+            className={`flex-1 flex items-center justify-center gap-3 text-center ${
+              isVisible ? 'animate-on-scroll animate-visible stagger-3' : 'animate-on-scroll'
+            }`}
+          >
+            {/* Brazil map icon */}
+            <img
+              src="/images/brasil.png"
+              alt="Mapa do Brasil"
+              className="w-10 h-auto lg:w-12"
+            />
+            <span className="text-sm font-medium text-[#ffffff]/80 text-left leading-tight">
+              Atuacao<br />Nacional
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
