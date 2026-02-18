@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
-
+import LogoGptw from "../../lib/GPTW.png"
 export function HeroSection() {
   const [ref, isVisible] = useScrollAnimation<HTMLElement>(0.1)
   const [isHovered, setIsHovered] = useState(false)
@@ -132,7 +132,7 @@ export function HeroSection() {
             {/* GPTW Badge */}
             <div className="absolute -right-4 top-0 lg:right-0">
               <img
-                src="/images/gptw-badge.png"
+                src={LogoGptw.src || LogoGptw}
                 alt="Great Place To Work - Certificada 2025 Brasil"
                 className="w-20 h-auto lg:w-24"
               />

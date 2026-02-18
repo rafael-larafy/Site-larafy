@@ -2,6 +2,7 @@
 
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import { useEffect, useState, useRef } from "react"
+import BrasilImg from "../../lib/Brasil.png"
 
 function AnimatedCounter({ target, suffix = "" }: { target: number; suffix?: string }) {
   const [count, setCount] = useState(0)
@@ -52,7 +53,7 @@ export function StatsSection() {
       ref={ref}
       className="relative py-16 overflow-hidden"
       style={{
-        background: "linear-gradient(135deg, #0a1628 0%, #0d2847 50%, #0a1628 100%)",
+        background: "linear-gradient(135deg, #0a1628 0%)",
       }}
     >
       {/* Subtle blue glow */}
@@ -95,11 +96,7 @@ export function StatsSection() {
             }`}
           >
             {/* Brazil map icon */}
-            <img
-              src="/images/brasil.png"
-              alt="Mapa do Brasil"
-              className="w-10 h-auto lg:w-12"
-            />
+            <img src={BrasilImg.src || BrasilImg} alt="Mapa do Brasil" className="w-30 h-auto lg:w-20" />
             <span className="text-sm font-medium text-[#ffffff]/80 text-left leading-tight">
               Atuacao<br />Nacional
             </span>
