@@ -31,7 +31,7 @@ export function ZeroRiscoSection() {
         <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-20">
           {/* Left - ZERO headline */}
           <div className={`flex-1 ${isVisible ? 'animate-slide-left animate-visible' : 'animate-slide-left'}`}>
-            <h2 className="text-7xl font-black uppercase italic text-[#ffffff] leading-none lg:text-9xl">
+            <h2 className="text-7xl font-black uppercase text-[#ffffff] leading-none lg:text-9xl">
               ZERO
             </h2>
             <p className="mt-4 text-2xl font-bold text-[#ffffff] lg:text-4xl leading-tight">
@@ -68,7 +68,7 @@ export function ZeroRiscoSection() {
           >
             Solicitar Diagnostico Tributario Estrategico
           </a>
-          <p className="mt-8 text-xl font-bold italic text-[#ffffff] lg:text-2xl text-balance">
+          <p className="mt-8 text-xl font-bold text-[#ffffff] lg:text-2xl text-balance">
             Recuperar o passado e obrigacao. Planejar o futuro e vantagem competitiva.
           </p>
         </div>

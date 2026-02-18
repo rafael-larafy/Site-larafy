@@ -16,7 +16,7 @@ export function CeoSection() {
         <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-16">
           {/* Left content */}
           <div className={`flex-1 space-y-8 ${isVisible ? 'animate-slide-left animate-visible' : 'animate-slide-left'}`}>
-            <h2 className="text-3xl font-black uppercase italic leading-tight text-[#00e5ff] lg:text-5xl text-balance">
+            <h2 className="text-3xl font-black uppercase leading-tight text-[#00e5ff] lg:text-5xl text-balance">
               A linha tenue entre o erro e o acerto esta em como foi analisado.
             </h2>
             <div className="space-y-4">
