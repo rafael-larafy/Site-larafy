@@ -1,6 +1,7 @@
 "use client"
 
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import PessoaImg from "../../lib/Pessoa-preocupada.png"
 
 const tags = [
   "ANALISES PONTUAIS",
@@ -26,34 +27,12 @@ export function ReformaTributariaSection() {
           <div className="flex flex-col lg:flex-row items-start gap-12 lg:gap-16">
             {/* Left - person image area */}
             <div className={`flex-shrink-0 ${isVisible ? 'animate-slide-left animate-visible' : 'animate-slide-left'}`}>
-              <div className="relative w-64 h-80 lg:w-80 lg:h-96 rounded-xl overflow-hidden bg-[#1a2a40]">
-                {/* Businessman silhouette */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <svg
-                    width="200"
-                    height="280"
-                    viewBox="0 0 200 280"
-                    fill="none"
-                    className="text-[#2a4060]"
-                  >
-                    <circle cx="100" cy="60" r="40" fill="currentColor" />
-                    <path
-                      d="M40 280V200C40 170 60 150 100 150C140 150 160 170 160 200V280"
-                      fill="currentColor"
-                    />
-                    <path
-                      d="M80 90L70 150H90L85 120Z"
-                      fill="currentColor"
-                      opacity="0.8"
-                    />
-                    <path
-                      d="M120 90L130 150H110L115 120Z"
-                      fill="currentColor"
-                      opacity="0.8"
-                    />
-                  </svg>
-                </div>
-                {/* Hand on face overlay */}
+              <div className="relative w-64 h-80 lg:w-140 lg:h-98 rounded-xl overflow-hidden bg-[]">
+                <img
+                  src={PessoaImg.src || PessoaImg}
+                  alt="Pessoa preocupada"
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0d1d33] via-transparent to-transparent" />
               </div>
             </div>
