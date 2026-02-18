@@ -1,9 +1,11 @@
 "use client"
 
+import { useState } from "react"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
-
+import LogoGptw from "../../lib/GPTW.png"
 export function HeroSection() {
   const [ref, isVisible] = useScrollAnimation<HTMLElement>(0.1)
+  const [isHovered, setIsHovered] = useState(false)
 
   return (
     <section
@@ -21,13 +23,13 @@ export function HeroSection() {
           {/* Left content */}
           <div className={`flex-1 space-y-8 ${isVisible ? 'animate-slide-left animate-visible' : 'animate-slide-left'}`}>
             <h1 className="text-5xl font-extrabold leading-tight tracking-tight text-balance lg:text-7xl">
-              <span className="[#00e5ff]">REDUZIMOS</span>
+              <span className="text-[#00e5ff]">REDUZIMOS</span>
               <br />
-              <span className="[#00e5ff]">IMPOSTOS</span>
+              <span className="text-[#00e5ff]">IMPOSTOS</span>
               <br />
-              <span className="[#00e5ff]">COM PRECISAO</span>
+              <span className="text-[#00e5ff]">COM PRECISAO</span>
               <br />
-              <span className="text-color [#00e5ff]">CIRURGICA</span>
+              <span className="text-[#00e5ff]">CIRURGICA</span>
             </h1>
             <p className="max-w-lg text-lg leading-relaxed text-[#8ba3c0]">
               A decisao tributaria que seu negocio precisa, com resultados e ZERO riscos.
@@ -44,19 +46,23 @@ export function HeroSection() {
 
           {/* Right content - Tablet mockup */}
           <div className={`flex-1 relative ${isVisible ? 'animate-slide-right animate-visible' : 'animate-slide-right'}`}>
-            <div className="relative">
+            <div
+              className="relative group cursor-pointer"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
               {/* Tablet frame */}
-              <div className="relative mx-auto w-full max-w-[560px] rounded-2xl border-[6px] border-[#2a3a50] bg-[#0d1d33] p-4 shadow-2xl shadow-[#0066ff]/10">
+              <div className="relative mx-auto w-full max-w-[560px] rounded-2xl border-[6px] border-[#2a3a50] bg-[#0d1d33] p-4 shadow-2xl shadow-[#0066ff]/10 transition-all duration-700 ease-out group-hover:shadow-[#00e5ff]/20 group-hover:shadow-3xl group-hover:-translate-y-2">
                 <div className="aspect-[4/3] overflow-hidden rounded-lg bg-[#1a2a40]">
                   {/* Dashboard content simulation */}
                   <div className="p-3 space-y-3">
-                    <div className="flex items-center gap-2 text-xs text-[#8ba3c0]">
+                    <div className="flex items-center gap-2 text-xs text-[#8ba3c0] transition-all duration-500 group-hover:text-[#a8c4e0]">
                       <span className="text-[#00e5ff] font-semibold">{'Diagnostico'}</span>
                       <span>{'/'}</span>
                       <span>{'Analises e Cruzamentos'}</span>
                     </div>
                     <div className="bg-[#0d1d33] rounded-lg p-3">
-                      <p className="text-xs font-bold text-[#ffffff] mb-2">ANALISE GERENCIAL</p>
+                      <p className="text-xs font-bold text-[#ffffff] mb-2 transition-all duration-500 group-hover:text-[#00e5ff]">ANALISE GERENCIAL</p>
                       <p className="text-[10px] text-[#00e5ff]">INFORMACOES GERENCIAIS</p>
                       <div className="mt-3 grid grid-cols-4 gap-2">
                         {[
@@ -65,35 +71,54 @@ export function HeroSection() {
                           { label: "A Explorar", value: "1,98 M" },
                           { label: "Certificadas", value: "6,01 M" },
                         ].map((item, i) => (
-                          <div key={i} className="bg-[#1a2a40] rounded p-2 text-center">
+                          <div
+                            key={i}
+                            className="bg-[#1a2a40] rounded p-2 text-center transition-all duration-500 ease-out group-hover:-translate-y-1 group-hover:bg-[#1e3350] group-hover:shadow-lg group-hover:shadow-[#00e5ff]/5"
+                            style={{ transitionDelay: `${i * 80}ms` }}
+                          >
                             <p className="text-[8px] text-[#8ba3c0]">{item.label}</p>
                             <p className="text-[10px] font-bold text-[#ffffff]">{item.value}</p>
                           </div>
                         ))}
                       </div>
                       <div className="mt-3 grid grid-cols-2 gap-2">
-                        <div className="bg-[#1a2a40] rounded p-2">
+                        <div
+                          className="bg-[#1a2a40] rounded p-2 transition-all duration-500 ease-out group-hover:-translate-y-1.5 group-hover:bg-[#1e3350] group-hover:shadow-lg group-hover:shadow-[#00e5ff]/5"
+                          style={{ transitionDelay: '350ms' }}
+                        >
                           <p className="text-[8px] text-[#8ba3c0]">{'ICMS e Restituicao'}</p>
                           <p className="text-xs font-bold text-[#ffffff]">766.281.204,96</p>
                         </div>
-                        <div className="bg-[#1a2a40] rounded p-2">
+                        <div
+                          className="bg-[#1a2a40] rounded p-2 transition-all duration-500 ease-out group-hover:-translate-y-1.5 group-hover:bg-[#1e3350] group-hover:shadow-lg group-hover:shadow-[#00e5ff]/5"
+                          style={{ transitionDelay: '430ms' }}
+                        >
                           <p className="text-[8px] text-[#8ba3c0]">{'Total Recuperado'}</p>
                           <p className="text-xs font-bold text-[#ffffff]">12.437.996,76</p>
                         </div>
                       </div>
                       {/* Charts simulation */}
                       <div className="mt-3 flex gap-2">
-                        <div className="flex-1 bg-[#1a2a40] rounded p-2 h-16 flex items-end gap-1">
+                        <div className="flex-1 bg-[#1a2a40] rounded p-2 h-16 flex items-end gap-1 transition-all duration-500 ease-out group-hover:bg-[#1e3350]" style={{ transitionDelay: '500ms' }}>
                           {[40, 65, 45, 80, 55, 70, 90, 60].map((h, i) => (
                             <div
                               key={i}
-                              className="flex-1 bg-[#00e5ff]/60 rounded-t"
-                              style={{ height: `${h}%` }}
-                            />
+                              className="flex-1 rounded-t transition-all duration-700 ease-out"
+                              style={{
+                                height: isHovered ? `${h}%` : `${h * 0.3}%`,
+                                backgroundColor: isHovered ? 'rgba(0, 229, 255, 0.8)' : 'rgba(0, 229, 255, 0.4)',
+                                transitionDelay: `${550 + i * 60}ms`,
+                              }}
+                            >
+                              <span className="sr-only">{`Barra ${i + 1}`}</span>
+                            </div>
                           ))}
                         </div>
-                        <div className="flex-1 bg-[#1a2a40] rounded p-2 h-16 flex items-center justify-center">
-                          <div className="w-10 h-10 rounded-full border-4 border-[#00e5ff] border-r-transparent" />
+                        <div
+                          className="flex-1 bg-[#1a2a40] rounded p-2 h-16 flex items-center justify-center transition-all duration-500 ease-out group-hover:bg-[#1e3350]"
+                          style={{ transitionDelay: '500ms' }}
+                        >
+                          <div className="w-10 h-10 rounded-full border-4 border-[#00e5ff]/40 border-r-transparent transition-all duration-700 group-hover:border-[#00e5ff] group-hover:border-r-transparent group-hover:rotate-180" />
                         </div>
                       </div>
                     </div>
@@ -101,13 +126,13 @@ export function HeroSection() {
                 </div>
               </div>
               {/* Glow under tablet */}
-              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-4 bg-[#0066ff]/40 blur-xl rounded-full" />
+              <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-[80%] h-4 bg-[#0066ff]/40 blur-xl rounded-full transition-all duration-700 group-hover:bg-[#00e5ff]/50 group-hover:w-[90%] group-hover:h-6" />
             </div>
 
             {/* GPTW Badge */}
             <div className="absolute -right-4 top-0 lg:right-0">
               <img
-                src="/images/gptw-badge.png"
+                src={LogoGptw.src || LogoGptw}
                 alt="Great Place To Work - Certificada 2025 Brasil"
                 className="w-20 h-auto lg:w-24"
               />

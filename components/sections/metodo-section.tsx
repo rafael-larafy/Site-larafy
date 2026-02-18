@@ -16,7 +16,7 @@ export function MetodoSection() {
             isVisible ? 'animate-on-scroll animate-visible' : 'animate-on-scroll'
           }`}
         >
-          <h2 className="text-2xl font-extrabold italic text-[#00e5ff] lg:text-4xl">
+          <h2 className="text-2xl font-extrabold text-[#00e5ff] lg:text-4xl">
             Entenda nosso metodo
           </h2>
           <a
